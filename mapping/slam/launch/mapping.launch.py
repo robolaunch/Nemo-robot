@@ -1,33 +1,3 @@
-# #!/usr/bin/env python3
-# import os
-
-# from ament_index_python.packages import get_package_share_directory
-# from launch import LaunchDescription
-# from launch_ros.actions import Node
-# from launch.actions import IncludeLaunchDescription
-# from launch.launch_description_sources import PythonLaunchDescriptionSource
-# from launch.substitutions import LaunchConfiguration
-
-# def generate_launch_description():
-#     # SLAM
-#     slam_toolbox_package_direction = os.path.join(get_package_share_directory('slam_toolbox'), 'launch')
-
-#     # SLAM Launch
-#     slam_toolbox_command = IncludeLaunchDescription(
-#         PythonLaunchDescriptionSource(
-#             os.path.join(slam_toolbox_package_direction, 'online_async_launch.py')
-#         )
-#     )
-
-    
-
-#     ld = LaunchDescription()
-
-#     # Adding commands to launch description
-#     ld.add_action(slam_toolbox_command)
-
-#     return ld
-
 import os
 
 from launch import LaunchDescription
@@ -43,7 +13,7 @@ def generate_launch_description():
 
     declare_use_sim_time_argument = DeclareLaunchArgument(
         'use_sim_time',
-        default_value='true',
+        default_value='false',
         description='Use simulation/Gazebo clock')
     declare_slam_params_file_cmd = DeclareLaunchArgument(
         'slam_params_file',
