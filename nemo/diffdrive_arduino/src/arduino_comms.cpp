@@ -22,17 +22,31 @@ void ArduinoComms::sendEmptyMsg()
     std::string response = sendMsg("\r");
 }
 
-void ArduinoComms::readEncoderValues(int &val_1, int &val_2)
+void ArduinoComms::readEncoderValues(int &int_val_1, int &int_val_2, int &int_val_3, int &int_val_4)
 {
     std::string response = sendMsg("e\r");
+    std::istringstream iss(response);
+    std::string val_1, val_2, val_3, val_4;
 
-    std::string delimiter = " ";
-    size_t del_pos = response.find(delimiter);
-    std::string token_1 = response.substr(0, del_pos);
-    std::string token_2 = response.substr(del_pos + delimiter.length());
+    iss >> val_1 >> val_2 >> val_3 >> val_4;
 
-    val_1 = 1*std::atoi(token_1.c_str());
-    val_2 = 1*std::atoi(token_2.c_str());
+    int_val_1 = -1*std::atoi(val_1.c_str());
+    int_val_2 = -1*std::atoi(val_2.c_str());
+    int_val_3 = -1*std::atoi(val_3.c_str());
+    int_val_4 = -1*std::atoi(val_4.c_str());
+
+
+    //std::string delimiter = " ";
+    //size_t del_pos = response.find(delimiter);
+    //std::string token_1 = response.substr(0, del_pos);
+    //std::string token_2 = response.substr(del_pos + delimiter.length());
+
+    //val_1 = -1*std::atoi(token_1.c_str());
+    //val_2 = -1*std::atoi(token_2.c_str());
+
+
+
+
 }
 
 void ArduinoComms::setMotorValues(float val_1, float val_2)

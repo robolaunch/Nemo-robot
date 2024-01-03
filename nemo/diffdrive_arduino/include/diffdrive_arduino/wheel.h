@@ -15,6 +15,7 @@ class Wheel
     double pos = 0;
     double vel = 0;
     double eff = 0;
+    int hz  = 0;
     double velSetPt = 0;
     double rads_per_count = 0;
 

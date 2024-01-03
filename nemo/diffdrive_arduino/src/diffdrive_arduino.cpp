@@ -91,31 +91,23 @@ hardware_interface::return_type DiffDriveArduino::read(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
 
-  // TODO fix chrono duration
-
-  // Calculate time delta
-  auto new_time = std::chrono::system_clock::now();
-  std::chrono::duration<double> diff = new_time - time_;
-  double deltaSeconds = diff.count();
-  time_ = new_time;
-
-
   if (!arduino_.connected())
   {
     return return_type::ERROR;
   }
 
-  arduino_.readEncoderValues(l_wheel_.enc, r_wheel_.enc);
+  arduino_.readEncoderValues(l_wheel_.enc, l_wheel_.hz, r_wheel_.enc,  r_wheel_.hz);
   // RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left Encoder %d Right Encoder %d", l_wheel_.enc, r_wheel_.enc );
 
   double pos_prev = l_wheel_.pos;
-  l_wheel_.pos = -1 * l_wheel_.calcEncAngle();
-  l_wheel_.vel = (l_wheel_.pos - pos_prev) / deltaSeconds;
+  l_wheel_.pos = l_wheel_.calcEncAngle();
+  l_wheel_.vel = l_wheel_.hz*0.000000004604;
 
   pos_prev = r_wheel_.pos;
-  r_wheel_.pos = -1 * r_wheel_.calcEncAngle();
-  r_wheel_.vel = (r_wheel_.pos - pos_prev) / deltaSeconds;
+  r_wheel_.pos = r_wheel_.calcEncAngle();
+  r_wheel_.vel = r_wheel_.hz*0.000000004604;
 
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left  Hz: %f , Right Hz: %f", l_wheel_.vel, r_wheel_.vel);
 
 
   return return_type::OK;
@@ -133,8 +125,9 @@ hardware_interface::return_type DiffDriveArduino::write(
   }
 
   arduino_.setMotorValues(l_wheel_.cmd/15.384614, r_wheel_.cmd/15.384614);
-  float leko = l_wheel_.cmd;
-  //RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Motor spped left %f", leko );
+  //float leko = l_wheel_.cmd;
+  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left CMD: %f , Right CMD: %f", l_wheel_.cmd/15.384614 , r_wheel_.cmd/15.384614);
+
 
 
 
