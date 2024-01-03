@@ -15,12 +15,12 @@ diff_cont:
     publish_rate: 50.0
 
     base_frame_id: base_footprint
-    enable_odom_tf: false
+    enable_odom_tf: true 
 
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']
-    wheel_separation: 0.21
-    wheel_radius: 0.065
+    wheel_separation: 0.23
+    wheel_radius: 0.068
 
     use_stamped_vel: false
 

@@ -65,7 +65,7 @@ def generate_launch_description():
         'map',
         default=os.path.join(
             get_package_share_directory('bringup_robolaunch'),
-            'maps/office',
+            'maps/office-v7',
             'map.yaml'
             ))
 

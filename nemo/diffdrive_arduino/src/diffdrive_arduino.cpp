@@ -107,7 +107,7 @@ hardware_interface::return_type DiffDriveArduino::read(
   r_wheel_.pos = r_wheel_.calcEncAngle();
   r_wheel_.vel = r_wheel_.hz*0.000000004604;
 
-  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left  Hz: %f , Right Hz: %f", l_wheel_.vel, r_wheel_.vel);
+  //RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left  Hz: %f , Right Hz: %f", l_wheel_.vel, r_wheel_.vel);
 
 
   return return_type::OK;
@@ -126,7 +126,7 @@ hardware_interface::return_type DiffDriveArduino::write(
 
   arduino_.setMotorValues(l_wheel_.cmd/15.384614, r_wheel_.cmd/15.384614);
   //float leko = l_wheel_.cmd;
-  RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left CMD: %f , Right CMD: %f", l_wheel_.cmd/15.384614 , r_wheel_.cmd/15.384614);
+  //RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left CMD: %f , Right CMD: %f", l_wheel_.cmd/15.384614 , r_wheel_.cmd/15.384614);
 
 
 
