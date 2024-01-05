@@ -24,7 +24,7 @@ class CMDVelPublisher(Node):
         self._yaw_message = String()
 
         self._cmd_vel_message.angular.z = math.pi/6
-
+        #self._cmd_vel_message.linear.x = 0.1
         self._total_time = 0.0
 
         self._start = self.get_clock().now().to_msg().sec
@@ -53,12 +53,12 @@ class CMDVelPublisher(Node):
 
 
     def mainLoop(self):
-        #if self._total_time < 6:
-        if True:
+        if self._total_time <= 12.0:
+        #if True:
             self._start = self.get_clock().now().to_msg().sec
-            #self.debug("cmd_vel_publisher: " + str(self._total_time))
+            self.debug("cmd_vel_publisher: " + str(self._total_time))
 
-            #self._cmd_vel_publisher.publish(self._cmd_vel_message)
+            self._cmd_vel_publisher.publish(self._cmd_vel_message)
             self._total_time = self._total_time + (self._start - self._end)
             # self._total_time = self._total_time + self._dt
             self._end = self._start
@@ -66,6 +66,7 @@ class CMDVelPublisher(Node):
             # self.debug("cmd_vel_publisher: " + str(self._total_time))
 
         else:
+            self._cmd_vel_message.linear.x = 0.0
             self._cmd_vel_message.angular.z = 0.0
             self._cmd_vel_publisher.publish(self._cmd_vel_message)
             self._timer.reset()

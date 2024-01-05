@@ -1,0 +1,9 @@
+/inverse_kinematics_node:
+  ros__parameters:
+    wheel_specs:
+      wheel_radius: 0.068 
+      gear_ratio: 1.0
+    body_specs:
+      base_width: 0.23
+    motor_frame_id: 'motor'
+    rate: 10.0

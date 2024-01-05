@@ -1,0 +1,10 @@
+/forward_kinematics_node:
+    ros__parameters:
+      odom_frame: "odom"
+      robot_base_frame: "base_footprint"
+      wheel_specs:
+        wheel_radius: 0.068 
+        gear_ratio: 1.0
+      body_specs:
+        base_width: 0.23
+    

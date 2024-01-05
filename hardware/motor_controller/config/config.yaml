@@ -1,0 +1,17 @@
+/motor_controller_node:
+  ros__parameters:
+    motor_controller:
+      timer_period: 0.01 # Main loop period
+      port_name: "/dev/ttyUSB2" # Port name of left motor controller serial port.
+      baudrate: 57600 # Baudrate of left motor controller serial port. 
+      motor_acceleration: 700 # Motor acceleration for left motor controller
+      read_period: 0.01 # Read Period for left motor controller serial port.
+      write_period: 0.1 # Write Period for left motor controller serial port.
+      left_motor_direction: 1 # Constant value for motor (wheel) direction.
+      right_motor_direction: 1 # Constant value for motor (wheel) direction.
+      serial_port_group: "/dev" # Serial port group to detect tty
+      id_vendor: "Roboteq" # ID Vendor to detect tty (Front Motor Controller udevadm info)
+      id_vendor_id: "20d2" # ID Vendor ID to detect tty (Front Motor Controller udevadm info)
+      id_model_id: "5740" # ID Model ID to detect tty (Front Motor Controller udevadm info)
+      id_path: "pci-0000:00:14.0-usb-0:4:1.0" # ID Path to detect tty (Front Motor Controller udevadm info)
+      
