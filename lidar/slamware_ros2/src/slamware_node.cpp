@@ -3,7 +3,12 @@
 
 SlamwareNode::SlamwareNode() : Node("slamware_node")
 {
-
+  qos_profile_.durability = RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
+  qos_profile_.reliability = RMW_QOS_POLICY_RELIABILITY_RELIABLE;
+  qos_profile_.liveliness = RMW_QOS_POLICY_LIVELINESS_AUTOMATIC;
+  
+  auto qos_ = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile_.history, 0), qos_profile_);
+  
   rpos_platform = rpos::robot_platforms::SlamwareCorePlatform::connect("192.168.11.1", 1445);
   map_holder = slamware_ros_sdk::ServerMapHolder();
 
@@ -13,7 +18,7 @@ SlamwareNode::SlamwareNode() : Node("slamware_node")
   odom_msg_ = std::make_shared<nav_msgs::msg::Odometry>();
 
   laser_scan_pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", 10);
-  map_pub_        = this->create_publisher<nav_msgs::msg::OccupancyGrid>("map", 10);
+  map_pub_        = this->create_publisher<nav_msgs::msg::OccupancyGrid>("map", qos_);
   odom_pub_       = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
 
   tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
@@ -33,7 +38,7 @@ void SlamwareNode::publish_laser_scan()
   double scan_duration = (end_scan_time - start_scan_time).seconds();
 
   scan_msg_->header.stamp = start_scan_time;
-  scan_msg_->header.frame_id = "odom";
+  scan_msg_->header.frame_id = "base_scan"; // odom
   fillRangeMinMaxInMsg_(laser_points, scan_msg_);
 
   scan_msg_->ranges.resize(laser_points.size());
@@ -94,7 +99,7 @@ void SlamwareNode::broadcastMap2Laser(){
   
   transform_stamped.header.stamp = clock_->now();
   transform_stamped.header.frame_id = "map";
-  transform_stamped.child_frame_id = "odom";
+  transform_stamped.child_frame_id = "base_footprint";
   transform_stamped.transform.translation.x = laser_pose.x();
   transform_stamped.transform.translation.y = laser_pose.y();
   transform_stamped.transform.translation.z = 0.0;
@@ -109,7 +114,7 @@ void SlamwareNode::broadcastMap2Laser(){
 
   odom_msg_->header.stamp = clock_->now();
   odom_msg_->header.frame_id = "map";
-  odom_msg_->child_frame_id = "odom";
+  odom_msg_->child_frame_id = "base_footprint";
   odom_msg_->pose.pose.position.x = laser_pose.x();
   odom_msg_->pose.pose.position.y = laser_pose.y();
   odom_msg_->pose.pose.position.z = 0.0;

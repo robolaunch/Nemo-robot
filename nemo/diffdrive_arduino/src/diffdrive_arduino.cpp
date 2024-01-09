@@ -98,15 +98,14 @@ hardware_interface::return_type DiffDriveArduino::read(
   std::chrono::duration<double> diff = new_time - time_;
   double deltaSeconds = diff.count();
   time_ = new_time;
-
-
+  //RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Delta Seconds %f", deltaSeconds );
   if (!arduino_.connected())
   {
     return return_type::ERROR;
   }
 
   arduino_.readEncoderValues(l_wheel_.enc, r_wheel_.enc);
-  // RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left Encoder %d Right Encoder %d", l_wheel_.enc, r_wheel_.enc );
+  //RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"),"Left Encoder %d Right Encoder %d", l_wheel_.enc, r_wheel_.enc );
 
   double pos_prev = l_wheel_.pos;
   l_wheel_.pos = -1 * l_wheel_.calcEncAngle();

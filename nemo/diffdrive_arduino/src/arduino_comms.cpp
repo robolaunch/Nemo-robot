@@ -19,7 +19,8 @@ void ArduinoComms::setup(const std::string &serial_device, int32_t baud_rate, in
 
 void ArduinoComms::sendEmptyMsg()
 {
-    std::string response = sendMsg("\r");
+    std::string response = sendMsg("r\r");
+
 }
 
 void ArduinoComms::readEncoderValues(int &val_1, int &val_2)

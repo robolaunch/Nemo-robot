@@ -55,6 +55,7 @@ private:
 
     std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
     tf2::Quaternion q;
+    rmw_qos_profile_t qos_profile_ = rmw_qos_profile_services_default;
     };
 
 
