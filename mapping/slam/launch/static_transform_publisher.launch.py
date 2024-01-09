@@ -5,6 +5,10 @@ def generate_launch_description():
 
     ld = LaunchDescription()
 
+    odom_to_base_link_node = Node(package = "tf2_ros", 
+                       executable = "static_transform_publisher",
+                       arguments = ["0", "0", "0", "0", "0", "0", "odom", "base_footprint"])
+
     base_footprint_to_base_link_node = Node(package = "tf2_ros", 
                        executable = "static_transform_publisher",
                        arguments = ["0", "0", "0", "0", "0", "0", "base_footprint", "base_link"])
@@ -23,7 +27,7 @@ def generate_launch_description():
                        executable = "static_transform_publisher",
                        arguments = ["0", "0.2646", "0.085", "-1.570796327", "0", "0", "base_link", "wheel_left_link"])
 
-
+    #ld.add_action(odom_to_base_link_node)
     ld.add_action(base_footprint_to_base_link_node)
     ld.add_action(base_link_to_base_scan_node)
     ld.add_action(base_link_to_right_wheel_node)

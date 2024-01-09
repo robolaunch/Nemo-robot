@@ -2,7 +2,7 @@
   ros__parameters:
     motor_controller:
       timer_period: 0.01 # Main loop period
-      port_name: "/dev/ttyUSB2" # Port name of left motor controller serial port.
+      port_name: "/dev/ttyUSB0" # Port name of left motor controller serial port.
       baudrate: 57600 # Baudrate of left motor controller serial port. 
       motor_acceleration: 700 # Motor acceleration for left motor controller
       read_period: 0.01 # Read Period for left motor controller serial port.

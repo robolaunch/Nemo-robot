@@ -96,7 +96,7 @@ void ForwardKinematics::calculateOdometryAndPublish(void)
         _position_y = _position_y + _v_y * _dt;
 
         // Odometry Message for odom topic.
-        _odometry_message.header.stamp = _last_time;
+        _odometry_message.header.stamp =     this->get_clock()->now();
         _odometry_message.header.frame_id = "odom";
         _odometry_message.child_frame_id = "base_footprint";
 
@@ -116,7 +116,7 @@ void ForwardKinematics::calculateOdometryAndPublish(void)
         _odometry_publisher->publish(_odometry_message);
         
         // Odometry Transform Stamped for odometry broadcast
-        _odometry_transform_stamped.header.stamp = _last_time;
+        _odometry_transform_stamped.header.stamp =     this->get_clock()->now();
         _odometry_transform_stamped.header.frame_id = "odom";
         _odometry_transform_stamped.child_frame_id = "base_footprint";
 

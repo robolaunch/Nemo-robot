@@ -11,7 +11,7 @@ Node("motor_controller_node")
 
     _motors_velocity_output_publisher = this->create_publisher<robolaunch_msgs::msg::Velocity>("/motors_velocity_output", 1);
 
-    _motor_controller_read_timer = this->create_wall_timer(1ms, bind(&MotorController::readMotorsAndMotorControllerValues, this));
+    _motor_controller_read_timer = this->create_wall_timer(10ms, bind(&MotorController::readMotorsAndMotorControllerValues, this));
 
     _motor_controller_write_timer = this->create_wall_timer(10ms, bind(&MotorController::writeMotorsValues, this));
     

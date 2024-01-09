@@ -29,6 +29,8 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   articubot_one/scripts/way_points.py
   articubot_one/scripts/waypoints_commander.py
+  scripts/barcode_reader.py
+  scripts/position_publisher.py
 
 
   DESTINATION lib/${PROJECT_NAME}
