@@ -19,7 +19,6 @@ class BarcodeReader(Node):
         self.robot_pose = PoseStamped()
 
         self.pose = PoseStamped()
-
         self._message_to_send = String()
 
         # Subscribers
@@ -71,7 +70,7 @@ class BarcodeReader(Node):
                 {
                     "x": self.pose.pose.position.x + direction_vec[0],
                     "y": self.pose.pose.position.y + direction_vec[1],
-                    "z": 0.0,
+                    "z": int(scanner_id)-1,
                     "yaw" : yaw* 180/math.pi
                 }
             }
@@ -81,8 +80,8 @@ class BarcodeReader(Node):
             #msg_send = String()
             #print(self._barcode_messages)
             #msg_send.data = json.dumps(self._barcode_messages, ensure_ascii=False)
-            self._message_to_send.data = json.dumps(self._barcode_messages, ensure_ascii=False)
-        print(self._barcode_messages)
+            self._message_to_send.data = json.dumps(json_obj, ensure_ascii=False)
+        # print(json_obj)
 
         self._barcode_publisher.publish(self._message_to_send)
 
