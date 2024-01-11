@@ -68,10 +68,10 @@ class BarcodeReader(Node):
                 "barcode": str(barcode),
                 "waypoint":
                 {
-                    "x": self.pose.pose.position.x + direction_vec[0],
-                    "y": self.pose.pose.position.y + direction_vec[1],
+                    "x": int(self.pose.pose.position.x + direction_vec[0]),
+                    "y": int(self.pose.pose.position.y + direction_vec[1]),
                     "z": int(scanner_id)-1,
-                    "yaw" : yaw* 180/math.pi
+                    "yaw" : int(yaw* 180/math.pi)
                 }
             }
 
