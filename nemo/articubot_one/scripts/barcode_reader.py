@@ -83,7 +83,7 @@ class BarcodeReader(Node):
             self._message_to_send.data = json.dumps(json_obj, ensure_ascii=False)
         # print(json_obj)
 
-        self._barcode_publisher.publish(self._message_to_send)
+        self._barcode_publisher.publish(self.json_obj)
 
 
 
